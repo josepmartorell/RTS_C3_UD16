@@ -1,3 +1,4 @@
+SET SQL_SAFE_UPDATES = 0;
 USE `actividades`;
 
 -- 4.1. Mostrar el nombre de todas las películas
@@ -20,12 +21,13 @@ select * from peliculas left join salas on actividades.salas.PELICULA = activida
 
 -- 4.7. Mostrar los nombres de las películas que no se proyectan en ninguna sala
 -- (funciona pero no muestra nada)
-select peliculas.NOMBRE from peliculas right join salas on actividades.salas.PELICULA = actividades.peliculas.CODIGO where salas.PELOCULA = null;
+select peliculas.nombre from peliculas left join salas on salas.pelicula = peliculas.codigo where salas.pelicula is null;
 
 -- 4.8. Añadir una nueva película 'Uno, Dos, Tres, para mayores de 7 años.
 insert into `peliculas` values (10,'Uno, Dos, Tres','PG');
 
 -- 4.9. Hacer constar que todas las películas no calificadas han sido calificadas 'no reco- mendables para menores de 13 años"
-
+update peliculas set calificacionedad = 'PG-13' where calificacionedad is null;
 
 -- 4.10. Eliminar todas las salas que proyectan películas recomendadas para todos los públicos.
+delete s from salas as s inner join peliculas as p on s.pelicula = p.codigo where p.calificacionedad = 'G';
