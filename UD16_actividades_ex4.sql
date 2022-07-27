@@ -20,7 +20,6 @@ select * from salas join peliculas on peliculas.CODIGO = salas.PELICULA;
 select * from peliculas left join salas on actividades.salas.PELICULA = actividades.peliculas.CODIGO;
 
 -- 4.7. Mostrar los nombres de las películas que no se proyectan en ninguna sala
--- (funciona pero no muestra nada)
 select peliculas.nombre from peliculas left join salas on salas.pelicula = peliculas.codigo where salas.pelicula is null;
 
 -- 4.8. Añadir una nueva película 'Uno, Dos, Tres, para mayores de 7 años.
