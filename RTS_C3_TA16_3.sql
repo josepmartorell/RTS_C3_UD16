@@ -46,4 +46,4 @@ update cajas set valor=valor*0.8 where cajas.VALOR > (select * from (select avg(
 delete from cajas where VALOR<100;
 
 -- 3.16 Vaciar el contenido de los almacenes que estan saturados
--- delete from almacenes where (select * from (select actividades.almacenes.CODIGO from almacenes where actividades.almacenes.CAPACIDAD < ANY (select count(almacen) from cajas group by almacen))as a);
+delete from cajas where almacen in (select codigo from almacenes where capacidad < (select COUNT(ca.numreferencia) from (select * from cajas where almacen = codigo)as ca));
